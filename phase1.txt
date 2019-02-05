@@ -1,0 +1,36 @@
+
+1.
+  Tarballs are used for compressing and archiving files
+  
+2.
+  tar
+
+3.
+  a. Compressing the information into a smaller format 
+  b. 7zip, peazip
+  c. [filename].tar.[compression]
+
+4.
+  a. -c
+  b. -x
+  c. -t
+
+5.
+  tar -cz ab.tar.gz a.txt b.txt
+
+6.
+  tar -t ab.tar.gz
+
+7.
+  tar -x ab.tar.gz 
+
+8.
+  tar -c project1 
+
+9.
+  -C /path/to/files
+
+10.
+  cd dir
+  echo *.{c|h} | tar -cz ../out.tar.gz 
+
