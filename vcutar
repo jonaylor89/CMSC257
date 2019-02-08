@@ -63,6 +63,9 @@ function archive {
     	cd $outdir
     fi
 
+	########################################################
+	# The variable all of the files will be concatenated to
+	########################################################
     files=""
 
 	############################################################################
@@ -120,14 +123,20 @@ function archive {
 }
 
 function extract {
-    printf "Input the name of the archive to be extracted.\n"
 
+	############################################################
+	# Prompt for archive to extract
+	############################################################
+    printf "Input the name of the archive to be extracted.\n"
     read -p "vcutar archive> " outfile
 
+	##############################################################
+	# Prompt for where to extract to
+	##############################################################
     printf "Input the directory to extract to (* if current directory)."
-
     read -p "vcutar direectory> " outdir
 
+	# The magic
     tar -x $outfile $outdir
 
 }
