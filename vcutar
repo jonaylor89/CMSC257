@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+#########################################
+# $1 should be the call type
+#########################################
+
+function check_exit {
+    if [[ $1 = ":q" ]]
+    then
+        exit
+    fi
+}
+
+function print_start {
+    printf "Start your options:\n"
+    printf "\tv - show the progress of archiving\n"
+    printf "\tj - use bzip2\n"
+    printf "\tg - use gzip\n"
+}
+
+function archive {
+
+    read -p "vartar options> " options
+
+    check_exit $options
+
+    printf "Input the directory containing the source files. \"*\" for the current directory\n"
+    read -p "vartar directory> "  temp1
+
+
+    while [ 1 -eq 1 ]
+    do
+
+        read -p "vartar file> " temp2
+
+        if [[ $item = ":a" ]]
+        then
+            break
+        fi
+    done
+
+    read -p "vartar archive> " outfile
+
+}
+
+function extract {
+    printf "Input the name of the archive to be extracted.\n"
+
+}
+
+function view {
+
+    read -p "vartar archive> " file
+
+    tar -v file
+
+}
+
+##############################################################
+# Start the script
+##############################################################
+
+print_start
+
+case "$1" in
+    "archive")
+        archive
+        ;;
+    "extract")
+        extract
+        ;;
+    "view")
+        view
+        ;;
+    "*")
+        ;;
+esac
+
