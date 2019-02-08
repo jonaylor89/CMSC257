@@ -25,18 +25,19 @@ function archive {
     check_exit $options
 
     printf "Input the directory containing the source files. \"*\" for the current directory\n"
-    read -p "vartar directory> "  temp1
+    read -p "vartar directory> "  outdir
 
+    files=""
 
-    while [ 1 -eq 1 ]
+    read -p "vcutar file> " file
+
+    while [[ file != ":a" ]]
     do
 
-        read -p "vartar file> " temp2
+        read -p "vartar file> " file
 
-        if [[ $item = ":a" ]]
-        then
-            break
-        fi
+	files="$file $files"
+
     done
 
     read -p "vartar archive> " outfile
