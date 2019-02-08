@@ -101,22 +101,22 @@ function archive {
 	then
 		if [[ "g" in $options ]] # gzip
 		then
-    		tar -cvz $files
+    		tar -cvzf $files
 		elif [[ "j" in $options ]]  # bzip2
 		then
-			tar -cvj $files
+			tar -cvjf $files
 		else
-			tar -cv $files
+			tar -cvf $files
 		fi
 	else # Not verbose
 		if [[ "g" in $options ]] # gzip
 		then
-    		tar -cz $files
+    		tar -czf $files
 		elif [[ "j" in $options ]] # bzip2
 		then
-			tar -cj $files
+			tar -cjf $files
 		else
-			tar -c $files
+			tar -cf $files
 		fi
 	fi
 
