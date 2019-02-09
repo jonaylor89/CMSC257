@@ -20,7 +20,7 @@ function print_options {
 	##########################################
     printf "Start your options:\n"
     printf "\tv - show the progress of archiving\n"
-    printf "\tj - use bzip2\n"
+    printf "\tz - use bzip2\n"
     printf "\tg - use gzip\n"
 }
 
@@ -107,9 +107,9 @@ function archive {
 		if [[ "g" in $options ]] # gzip
 		then
     		tar -cvzf $outfile $files
-		elif [[ "j" in $options ]]  # bzip2
+		elif [[ "z" in $options ]]  # bzip2
 		then
-			tar -cvjf $outfile $files
+			tar -cvzf $outfile $files
 		else
 			tar -cvf $files
 		fi
@@ -117,9 +117,9 @@ function archive {
 		if [[ "g" in $options ]] # gzip
 		then
     		tar -czf $outfile $files
-		elif [[ "j" in $options ]] # bzip2
+		elif [[ "z" in $options ]] # bzip2
 		then
-			tar -cjf $outfile $files
+			tar -czf $outfile $files
 		else
 			tar -cf $outfile $files
 		fi
