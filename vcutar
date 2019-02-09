@@ -85,7 +85,7 @@ function archive {
 		########################################################
 		# Prepend the new file to the string of file names
 		#######################################################
-		files="$file $files"
+		  files="$file $files"
 
     done
 
