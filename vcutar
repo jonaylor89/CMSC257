@@ -5,13 +5,19 @@
 #########################################
 
 function check_exit {
+	#####################################################
+	# If user types `:q` at any point the program exits
+	#####################################################
     if [[ $1 = ":q" ]]
     then
         exit
     fi
 }
 
-function print_start {
+function print_options {
+	##########################################
+	# Options for archiving
+	##########################################
     printf "Start your options:\n"
     printf "\tv - show the progress of archiving\n"
     printf "\tj - use bzip2\n"
@@ -19,61 +25,163 @@ function print_start {
 }
 
 function archive {
+	#########################
+	# Show user their options
+	#########################
+	print_options
 
+	###################################
+	# Prompt for their selected options
+	###################################
     read -p "vartar options> " options
 
+	# Always check output for if they wanna quit
+	# (They could be scared and wanna leave)
+	# We're not here to scare people are we, we're here to
+	# make them feel good
+	# Stay happy buddy :)
     check_exit $options
 
+	#################################################
+	# Prompt for the directory containing the goods
+	#################################################
     printf "Input the directory containing the source files. \"*\" for the current directory\n"
     read -p "vartar directory> "  outdir
 
+	#####################################################################################
+	# Who's idea was it to have the star be the current directory for this project?
+	# That's so dumb
+	# It's asking for trouble and that's unnecessary
+	#####################################################################################
+    if [[ $outdir != "*" ]]
+    then
+		###################################################################
+		# I could've just appended the output directory to every file
+		# but that seemed like a lot of work so I'm just changing into
+		# the directory of the files
+		###################################################################
+    	cd $outdir
+    fi
+
+	########################################################
+	# The variable all of the files will be concatenated to
+	########################################################
     files=""
 
+	############################################################################
+	# I can't remember if bash has do-while loops and I'm on a plane so no wifi
+	# I could be a good linux boy and find it on the man pages or I can just
+	# Add an inital prompt for the first file before the while loop
+	############################################################################
     read -p "vcutar file> " file
 
     while [[ file != ":a" ]]
     do
-
+		########################################################
+		# prompt for a file to archive
+		########################################################
         read -p "vartar file> " file
 
-	files="$file $files"
+		########################################################
+		# Prepend the new file to the string of file names
+		#######################################################
+		files="$file $files"
 
     done
 
+	##################################################
+	# Prompt for the archive filename
+	#################################################
     read -p "vartar archive> " outfile
+
+	######################################################################
+	# The lovely logic for determining EXACTLY what tar options to choose
+	######################################################################
+	if [[ "v" in $options ]]  # Verbose
+	then
+		if [[ "g" in $options ]] # gzip
+		then
+    		tar -cvzf $outfile $files
+		elif [[ "j" in $options ]]  # bzip2
+		then
+			tar -cvjf $outfile $files
+		else
+			tar -cvf $files
+		fi
+	else # Not verbose
+		if [[ "g" in $options ]] # gzip
+		then
+    		tar -czf $outfile $files
+		elif [[ "j" in $options ]] # bzip2
+		then
+			tar -cjf $outfile $files
+		else
+			tar -cf $outfile $files
+		fi
+	fi
 
 }
 
 function extract {
+
+	############################################################
+	# Prompt for archive to extract
+	############################################################
     printf "Input the name of the archive to be extracted.\n"
+    read -p "vcutar archive> " outfile
+
+	##############################################################
+	# Prompt for where to extract to
+	##############################################################
+    printf "Input the directory to extract to (* if current directory)."
+    read -p "vcutar direectory> " outdir
+
+	# The magic
+    tar -x $outfile $outdir
 
 }
 
 function view {
 
+	###########################################
+	# Prompt the user for the archive to view
+i	###########################################
     read -p "vartar archive> " file
 
-    tar -v file
+	################
+	# List contents
+	################
+    tar -vt file
 
 }
 
 ##############################################################
-# Start the script
+# START OF SCRIPT
 ##############################################################
 
-print_start
 
+###########################################################################
+# Check the call type (command line argument) and run appropriate function
+###########################################################################
 case "$1" in
+	# Create new archive
     "archive")
         archive
         ;;
+	# Extract archive
     "extract")
         extract
         ;;
+	# View contents of archive
     "view")
         view
         ;;
+	# Unknown option
     "*")
+    	printf "Get yeeted\n"
         ;;
 esac
 
+###############################################
+# END OF SCRIPT
+###############################################
