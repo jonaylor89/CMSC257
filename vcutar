@@ -47,6 +47,7 @@ function archive {
 	#################################################
     printf "Input the directory containing the source files. \"*\" for the current directory\n"
     read -p "vartar directory> "  outdir
+    check_exit $outdir
 
 	#####################################################################################
 	# Who's idea was it to have the star be the current directory for this project?
@@ -74,6 +75,7 @@ function archive {
 	# Add an inital prompt for the first file before the while loop
 	############################################################################
     read -p "vcutar file> " file
+    check_exit $file
 
     while [[ file != ":a" ]]
     do
@@ -81,6 +83,7 @@ function archive {
 		# prompt for a file to archive
 		########################################################
         read -p "vartar file> " file
+        check_exit $file
 
 		########################################################
 		# Prepend the new file to the string of file names
@@ -93,6 +96,8 @@ function archive {
 	# Prompt for the archive filename
 	#################################################
     read -p "vartar archive> " outfile
+
+    check_exit $outfile
 
 	######################################################################
 	# The lovely logic for determining EXACTLY what tar options to choose
@@ -129,12 +134,14 @@ function extract {
 	############################################################
     printf "Input the name of the archive to be extracted.\n"
     read -p "vcutar archive> " outfile
+    check_exit $outfile
 
 	##############################################################
 	# Prompt for where to extract to
 	##############################################################
     printf "Input the directory to extract to (* if current directory)."
     read -p "vcutar direectory> " outdir
+    check_exit $outdir
 
 	# The magic
     tar -x $outfile $outdir
@@ -147,6 +154,7 @@ function view {
 	# Prompt the user for the archive to view
 i	###########################################
     read -p "vartar archive> " file
+    check_exit $file
 
 	################
 	# List contents
