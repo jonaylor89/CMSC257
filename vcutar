@@ -20,7 +20,7 @@ function print_options {
 	##########################################
     printf "Start your options:\n"
     printf "\tv - show the progress of archiving\n"
-    printf "\tj - use bzip2\n"
+    printf "\tz - use bzip2\n"
     printf "\tg - use gzip\n"
 }
 
@@ -47,6 +47,22 @@ function archive {
 	#################################################
     printf "Input the directory containing the source files. \"*\" for the current directory\n"
     read -p "vartar directory> "  outdir
+    check_exit $outdir
+
+	#####################################################################################
+	# Who's idea was it to have the star be the current directory for this project?
+	# That's so dumb
+	# It's asking for trouble and that's unnecessary
+	#####################################################################################
+    if [[ $outdir != "*" ]]
+    then
+		###################################################################
+		# I could've just appended the output directory to every file
+		# but that seemed like a lot of work so I'm just changing into
+		# the directory of the files
+		###################################################################
+    	cd $outdir
+    fi
 
 	#####################################################################################
 	# Who's idea was it to have the star be the current directory for this project?
@@ -74,6 +90,7 @@ function archive {
 	# Add an inital prompt for the first file before the while loop
 	############################################################################
     read -p "vcutar file> " file
+    check_exit $file
 
     while [[ file != ":a" ]]
     do
@@ -81,6 +98,7 @@ function archive {
 		# prompt for a file to archive
 		########################################################
         read -p "vartar file> " file
+        check_exit $file
 
 		########################################################
 		# Prepend the new file to the string of file names
@@ -94,12 +112,14 @@ function archive {
 	#################################################
     read -p "vartar archive> " outfile
 
+    check_exit $outfile
+
 	######################################################################
 	# The lovely logic for determining EXACTLY what tar options to choose
 	######################################################################
 	if [[ "v" in $options ]]  # Verbose
 	then
-		if [[ "g" in $options ]] # gzip
+		if [[ "z" in $options ]] # gzip
 		then
     		tar -cvzf $outfile $files
 		elif [[ "j" in $options ]]  # bzip2
@@ -112,9 +132,9 @@ function archive {
 		if [[ "g" in $options ]] # gzip
 		then
     		tar -czf $outfile $files
-		elif [[ "j" in $options ]] # bzip2
+		elif [[ "z" in $options ]] # bzip2
 		then
-			tar -cjf $outfile $files
+			tar -czf $outfile $files
 		else
 			tar -cf $outfile $files
 		fi
@@ -129,12 +149,14 @@ function extract {
 	############################################################
     printf "Input the name of the archive to be extracted.\n"
     read -p "vcutar archive> " outfile
+    check_exit $outfile
 
 	##############################################################
 	# Prompt for where to extract to
 	##############################################################
     printf "Input the directory to extract to (* if current directory)."
     read -p "vcutar direectory> " outdir
+    check_exit $outdir
 
 	# The magic
     tar -x $outfile $outdir
@@ -147,6 +169,7 @@ function view {
 	# Prompt the user for the archive to view
 i	###########################################
     read -p "vartar archive> " file
+    check_exit $file
 
 	################
 	# List contents
@@ -185,4 +208,3 @@ esac
 ###############################################
 # END OF SCRIPT
 ###############################################
-
