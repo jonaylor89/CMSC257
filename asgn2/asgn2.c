@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  File          : cmsc257-s16-assign2.c
+//  File          : asgn2.c
 //  Description   : This is the main code file for the CMSC257 assignment 2.
 //                  see class assignment for details on what needs to be added.
 //
@@ -47,7 +47,7 @@ int main( void ) {
 	integer_display_array(i_array, NUMBER_ENTRIES);
 
 	for (i = 0; i < NUMBER_ENTRIES; i++) {
-		printf("%d", count_bits);
+		printf("%d", count_bits(i_array[i]));
 	}
 
 	quicksort(i_array, NUMBER_ENTRIES, 0, NUMBER_ENTRIES - 1);
@@ -56,7 +56,7 @@ int main( void ) {
 
 	printf("%d", float_evens(f_array, NUMBER_ENTRIES));
 
-	printf("%d", integer_evens(i_array, NUMBER_ENTREIS));
+	printf("%d", integer_evens(i_array, NUMBER_ENTIES));
 
 	// Return successfully
 	return 0;
