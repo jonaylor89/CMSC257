@@ -36,8 +36,42 @@ int main( void ) {
 	    scanf( "%f", &f_array[i] );
 	}
 
+	// Casting and modulus
+	for (i = 0; i < NUMBER_ENTRIES; i++) {
+		int temp = (int) f_array[i]
+		i_array[i] = ((temp * temp) / temp) % 16;
+	}
+
+	// Print contents
+	for (i = 0; i < NUMBER_ENTRIES; i++) {
+		printf("%f\n", f_array[i]);
+	}
+
+	// Print contents
+	for (i = 0; i < NUMBER_ENTRIES; i++) {
+		printf("%d\n", i_array[i]);
+	}
+
+
 	// TODO
 
+
 	// Return successfully
-	return(0);
+	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
