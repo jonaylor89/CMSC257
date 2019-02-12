@@ -9,20 +9,20 @@
 //                  the following functions and implement them in another
 //                  file, a1support.c.
 //
-//  Author        : ???
-//  Created       : ???
+//  Author        : John Naylor
+//  Created       : 02/12/19
 
 // Functions to define
 
-void float_display_array( ??? );
-void integer_display_array( ??? );
-int float_evens( ??? );
-int integer_evens( ??? );
-int count_bits( ??? );
-void integer_quicksort( ??? );
-void most_values( ??? );
-unsigned short reverse_bits( ??? );
-void binary_string( ??? );
+void float_display_array(int*, int);
+void integer_display_array(int*, int);
+int float_evens(float*, int);
+int integer_evens(int*, int);
+int count_bits(int);
+void integer_quicksort(int*, int, int);
+void most_values(int*, int, int);
+unsigned short reverse_bits(unsigned short);
+void binary_string(unsigned short, char*, int);
 
 #endif
 

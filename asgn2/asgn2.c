@@ -42,15 +42,9 @@ int main( void ) {
 		i_array[i] = ((temp * temp) / temp) % 16;
 	}
 
-	// Print contents
-	for (i = 0; i < NUMBER_ENTRIES; i++) {
-		printf("%f\n", f_array[i]);
-	}
+	float_display_array(f_array, NUMBER_ENTRIES);
 
-	// Print contents
-	for (i = 0; i < NUMBER_ENTRIES; i++) {
-		printf("%d\n", i_array[i]);
-	}
+	integer_disppplay_array(i_array, NUMBER_ENTRIES);
 
 
 	// TODO
