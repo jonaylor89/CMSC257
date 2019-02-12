@@ -44,11 +44,19 @@ int main( void ) {
 
 	float_display_array(f_array, NUMBER_ENTRIES);
 
-	integer_disppplay_array(i_array, NUMBER_ENTRIES);
+	integer_display_array(i_array, NUMBER_ENTRIES);
 
+	for (i = 0; i < NUMBER_ENTRIES; i++) {
+		printf("%d", count_bits);
+	}
 
-	// TODO
+	quicksort(i_array, NUMBER_ENTRIES, 0, NUMBER_ENTRIES - 1);
 
+	integer_display_array(i_array, NUMBER_ENTRIES)
+
+	printf("%d", float_evens(f_array, NUMBER_ENTRIES));
+
+	printf("%d", integer_evens(i_array, NUMBER_ENTREIS));
 
 	// Return successfully
 	return 0;

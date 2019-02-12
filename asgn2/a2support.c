@@ -31,15 +31,21 @@ void integer_display_array(int* arr, int size) {
 
 int float_evens(float* arr, int size) {
 
+
+
 	return 0;
 }
 
 int integer_evens(int* arr, int size) {
 
+
+
 	return 0;
 }
 
 int counter_bits(int num) {
+
+
 
 	return 0;
 }
@@ -54,10 +60,13 @@ void most_values(int* arr, int size, int highest) {
 
 unsigned short reverse_bits(unsigned short num) {
 
+
+
 	return 0;
 }
 
 void binary_string(unsigned short binary, char* arr, int size) {
+
 
 }
 
