@@ -31,16 +31,28 @@ void integer_display_array(int* arr, int size) {
 
 int float_evens(float* arr, int size) {
 
+  int counter = 0;
 
+  for (int i = 0; i < size; i++) {
+    if (arr[i] % 2 == 0) {
+      counter++; 
+    }
+  }
 
-	return 0;
+	return counter;
 }
 
 int integer_evens(int* arr, int size) {
 
+  int counter = 0;
 
+  for (int i = 0; i < size; i++) {
+    if (arr[i] % 2 == 0) {
+      counter++; 
+    }
+  }
 
-	return 0;
+	return counter;
 }
 
 int counter_bits(int num) {

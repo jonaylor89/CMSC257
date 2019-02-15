@@ -10,7 +10,8 @@
 
 
 // Include Files
-
+#include <stdio.h>
+#include <stdlib.h>
 
 // Project Includes
 #include "a2support.h"
@@ -38,7 +39,7 @@ int main( void ) {
 
 	// 2.) Casting and modulus
   for (i = 0; i < NUMBER_ENTRIES; i++) {
-		int temp = (int) f_array[i]
+		int temp = (int) f_array[i];
 		i_array[i] = ((temp * temp) / temp) % 16;
 	}
 
@@ -57,7 +58,7 @@ int main( void ) {
 	quicksort(i_array, NUMBER_ENTRIES, 0, NUMBER_ENTRIES - 1);
 
   // 7.)
-	integer_display_array(i_array, NUMBER_ENTRIES)
+	integer_display_array(i_array, NUMBER_ENTRIES);
 
   // 8.)
 	printf("%d", float_evens(f_array, NUMBER_ENTRIES));
@@ -69,13 +70,15 @@ int main( void ) {
   printf("%d", most_values(i_array, NUMBER_ENTRIES, i_array[NUMBER_ENTRIES-1]));
 
   // 11.)
+  unsigned short int theOne;
   char* bin_str;
   char* r_bin_str;
   for (i = 0; i < NUMBER_ENTRIES; i++) {
-    bin_str = binary_string(i_array[i]);
-    r_bin_str = reverse_bits(binary_string(i_array[i])
+    theOne = (unsigned short int) i_array[i];
 
-    i_array[i] = (unsigned int) i_array[i];
+    bin_str = binary_string(theOne);
+    r_bin_str = reverse_bits(bin_str);
+
     
     printf("%s", bin_str);
     printf("%s", r_bin_str);
