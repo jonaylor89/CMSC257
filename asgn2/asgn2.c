@@ -31,32 +31,58 @@ int main( void ) {
 	float f_array[NUMBER_ENTRIES];
 	int i, i_array[NUMBER_ENTRIES];
 
-	// Read the integer values
+	// 1.) Read the integer values
 	for (i = 0; i < NUMBER_ENTRIES; i++ ) {
 	    scanf( "%f", &f_array[i] );
 	}
 
-	// Casting and modulus
-	for (i = 0; i < NUMBER_ENTRIES; i++) {
+	// 2.) Casting and modulus
+  for (i = 0; i < NUMBER_ENTRIES; i++) {
 		int temp = (int) f_array[i]
 		i_array[i] = ((temp * temp) / temp) % 16;
 	}
 
+  // 3.) 
 	float_display_array(f_array, NUMBER_ENTRIES);
 
+  // 4.)
 	integer_display_array(i_array, NUMBER_ENTRIES);
 
+  // 5.)
 	for (i = 0; i < NUMBER_ENTRIES; i++) {
 		printf("%d", count_bits(i_array[i]));
 	}
 
+  // 6.)
 	quicksort(i_array, NUMBER_ENTRIES, 0, NUMBER_ENTRIES - 1);
 
+  // 7.)
 	integer_display_array(i_array, NUMBER_ENTRIES)
 
+  // 8.)
 	printf("%d", float_evens(f_array, NUMBER_ENTRIES));
 
-	printf("%d", integer_evens(i_array, NUMBER_ENTIES));
+  // 9.)
+	printf("%d", integer_evens(i_array, NUMBER_ENTRIES));
+
+  // 10.) 
+  printf("%d", most_values(i_array, NUMBER_ENTRIES, i_array[NUMBER_ENTRIES-1]));
+
+  // 11.)
+  char* bin_str;
+  char* r_bin_str;
+  for (i = 0; i < NUMBER_ENTRIES; i++) {
+    bin_str = binary_string(i_array[i]);
+    r_bin_str = reverse_bits(binary_string(i_array[i])
+
+    i_array[i] = (unsigned int) i_array[i];
+    
+    printf("%s", bin_str);
+    printf("%s", r_bin_str);
+
+    // find decimal of r_bin_str
+
+  }
 
 	// Return successfully
 	return 0;
