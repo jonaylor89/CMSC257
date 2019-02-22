@@ -72,20 +72,17 @@ int main( void ) {
   for (i = 0; most_value[i] != -1; i++) {
     printf("%d", most_value[i]);
   }
-
-  // Freeing heap memory
   free(most_value);
 
   // 11.)
   unsigned short int theOne;
-  char* bin_str;
-  char* r_bin_str;
+  char bin_str[sizeof(unsigned short int) + 1];
+  char r_bin_str[sizeof(unsigned short int) + 1];
   for (i = 0; i < NUMBER_ENTRIES; i++) {
     theOne = (unsigned short int) i_array[i];
 
-    bin_str = binary_string(theOne);
-    r_bin_str = reverse_bits(bin_str);
-
+    binary_string(theOne, bin_str, sizeof(unsigned short int) + 1);
+    reverse_bits(bin_str);
     
     printf("%s", bin_str);
     printf("%s", r_bin_str);
