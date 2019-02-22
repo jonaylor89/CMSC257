@@ -107,11 +107,13 @@ int *most_values(int* arr, int size, int highest) {
 
   int frequency[highest];
 
+  // Calculate the frequency of ints
   int i;
   for (i = 0; i < size; i++) {
     frequency[arr[i]]++;
   }
 
+  // Find out what the most frequent int is
   int most_freq = 0;
   for (i = 0; i < highest; i++) {
     if (most_freq < frequency[i]) {
@@ -119,6 +121,7 @@ int *most_values(int* arr, int size, int highest) {
     }
   }
 
+  // Calculate how many numbers are at that frequency
   int ret_count = 0;
   for (i = 0; i < highest; i++) {
     if (most_freq == frequency[i]) {
@@ -126,8 +129,10 @@ int *most_values(int* arr, int size, int highest) {
     }
   }
 
-  int counter[ret_count+1];
+  // One extra to signify the end (ret_count + 1)
+  int *counter = (int *) malloc(sizeof(int) * (ret_count+1));
 
+  // Add those numbers to an array to return
   int position = 0;
   for (i = 0; i < highest; i++) {
     if (most_freq == frequency[i]) {

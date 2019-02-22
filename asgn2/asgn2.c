@@ -73,6 +73,9 @@ int main( void ) {
     printf("%d", most_value[i]);
   }
 
+  // Freeing heap memory
+  free(most_value);
+
   // 11.)
   unsigned short int theOne;
   char* bin_str;
