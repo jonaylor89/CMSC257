@@ -35,7 +35,7 @@ int float_evens(float* arr, int size) {
 
   int i;
   for (i = 0; i < size; i++) {
-    if (arr[i] % 2 == 0) {
+    if ((int) arr[i] % 2 == 0) {
       counter++; 
     }
   }
@@ -126,7 +126,7 @@ int *most_values(int* arr, int size, int highest) {
     }
   }
 
-  int counter[ret_count];
+  int counter[ret_count+1];
 
   int position = 0;
   for (i = 0; i < highest; i++) {
@@ -135,6 +135,8 @@ int *most_values(int* arr, int size, int highest) {
       position++;
     }
   }
+
+  counter[position] = -1;
 
   return counter;
 }

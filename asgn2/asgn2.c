@@ -68,7 +68,10 @@ int main( void ) {
 	printf("%d", integer_evens(i_array, NUMBER_ENTRIES));
 
   // 10.) 
-  printf("%d", most_values(i_array, NUMBER_ENTRIES, i_array[NUMBER_ENTRIES-1]));
+  int *most_value = most_values(i_array, NUMBER_ENTRIES, i_array[NUMBER_ENTRIES-1]);
+  for (i = 0; most_value[i] != -1; i++) {
+    printf("%d", most_value[i]);
+  }
 
   // 11.)
   unsigned short int theOne;
