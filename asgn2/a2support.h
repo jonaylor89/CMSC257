@@ -1,5 +1,8 @@
+
 #ifndef A2SUPPORT_INCLUDED
 #define A2SUPPORT_INCLUDED
+
+#include <stdio.h>
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -14,15 +17,15 @@
 
 // Functions to define
 
-void float_display_array(int*, int);
+void float_display_array(float*, int);
 void integer_display_array(int*, int);
 int float_evens(float*, int);
 int integer_evens(int*, int);
 int count_bits(int);
 void integer_quicksort(int*, int, int);
 void most_values(int*, int, int);
-unsigned short reverse_bits(unsigned short);
-void binary_string(unsigned short, char*, int);
+unsigned short int reverse_bits(unsigned short int);
+void binary_string(unsigned short int, char*, int);
 
 #endif
 

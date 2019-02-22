@@ -1,3 +1,4 @@
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  File          : asgn2.c
@@ -55,7 +56,7 @@ int main( void ) {
 	}
 
   // 6.)
-	quicksort(i_array, NUMBER_ENTRIES, 0, NUMBER_ENTRIES - 1);
+	integer_quicksort(i_array, 0, NUMBER_ENTRIES);
 
   // 7.)
 	integer_display_array(i_array, NUMBER_ENTRIES);
