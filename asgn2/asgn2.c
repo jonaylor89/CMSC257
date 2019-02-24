@@ -40,7 +40,7 @@ int main( void ) {
 	    scanf( "%f", &f_array[i] );
 	}
 
-  printf("[DEBUG] Checkpoint 1\n");
+  // printf("[DEBUG] Checkpoint 1\n");
 
 	// 2.) Casting and modulus
   for (i = 0; i < NUMBER_ENTRIES; i++) {
@@ -48,49 +48,52 @@ int main( void ) {
 		i_array[i] = ((temp * temp) / temp) % 16;
 	}
 
-  printf("[DEBUG] Checkpoint 2\n");
+  // printf("[DEBUG] Checkpoint 2\n");
 
   // 3.) 
+  printf("Float Display:\n");
 	float_display_array(f_array, NUMBER_ENTRIES);
 
-  printf("[DEBUG] Checkpoint 3\n");
+  // printf("[DEBUG] Checkpoint 3\n");
 
   // 4.)
+  printf("Integer Display:\n");
 	integer_display_array(i_array, NUMBER_ENTRIES);
 
-  printf("[DEBUG] Checkpoint 4\n");
+  // printf("[DEBUG] Checkpoint 4\n");
 
   // 5.)
 	for (i = 0; i < NUMBER_ENTRIES; i++) {
-		printf("%d\n", count_bits(i_array[i]));
+		printf("The integer array value %d has %d bits\n", i_array[i], count_bits(i_array[i]));
 	}
 
-  printf("[DEBUG] Checkpoint 5\n");
+  // printf("[DEBUG] Checkpoint 5\n");
 
   // 6.)
 	integer_quicksort(i_array, 0, NUMBER_ENTRIES);
 
-  printf("[DEBUG] Checkpoint 6\n");
+  // printf("[DEBUG] Checkpoint 6\n");
 
   // 7.)
+  printf("The sorted integers are:\n");
 	integer_display_array(i_array, NUMBER_ENTRIES);
 
-  printf("[DEBUG] Checkpoint 7\n");
+  // printf("[DEBUG] Checkpoint 7\n");
 
   // 8.)
-	printf("%d\n", float_evens(f_array, NUMBER_ENTRIES));
+	printf("The number of even floats is: %d\n", float_evens(f_array, NUMBER_ENTRIES));
 
-  printf("[DEBUG] Checkpoint 8\n");
+  // printf("[DEBUG] Checkpoint 8\n");
 
   // 9.)
-	printf("%d\n", integer_evens(i_array, NUMBER_ENTRIES));
+	printf("The number of even ints is: %d\n", integer_evens(i_array, NUMBER_ENTRIES));
 
-  printf("[DEBUG] Checkpoint 9\n");
+  // printf("[DEBUG] Checkpoint 9\n");
 
   // 10.) 
   most_values(i_array, NUMBER_ENTRIES, i_array[NUMBER_ENTRIES-1]);
 
-  printf("[DEBUG] Checkpoint 10\n");
+  // printf("[DEBUG] Checkpoint 10\n");
 
   // 11.)
   unsigned short int theOne;
@@ -120,9 +123,10 @@ int main( void ) {
     }
 
     */
-    
-    printf("%s\n", bin_str);
-    printf("%s\n", r_theOne);
+
+    printf("The unsigned short value 0x%x\n", theOne);
+    printf("\tORIG : %s\n", bin_str);
+    printf("\tREVR : %s\n", r_theOne);
 
     // TODO find decimal of r_bin_str
     unsigned char *p = r_theOne;
@@ -133,7 +137,7 @@ int main( void ) {
       r += (unsigned int)((*p++) & 0x01);
     }
 
-    printf("%d\n", (int) r);
+    printf("\tVAL : %d\n", (int) r);
 
   }
 

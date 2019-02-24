@@ -18,16 +18,21 @@
 void float_display_array(float* arr, int size) {
 	// Print contents
 	for (int i = 0; i < size; i++) {
-		printf("%f\n", arr[i]);
+		printf("\t%.2f\t", arr[i]);
 	}
+
+  printf("\n");
+
 }
 
 // Same as above
 void integer_display_array(int* arr, int size) {
 	// Print contents
 	for (int i = 0; i < size; i++) {
-		printf("%d\n", arr[i]);
+		printf("\t%d\t", arr[i]);
 	}
+
+  printf("\n");
 
 }
 
@@ -128,11 +133,14 @@ void most_values(int* arr, int size, int highest) {
   }
 
   // print frequent numbers
+  printf("The most common value(s) is/are: ");
   for (i = 0; i <= highest; i++) {
     if (most_freq == frequency[i]) {
-      printf("%d\n", i);
+      printf(" %d", i);
     }
   }
+
+  printf("\n");
 }
 
 unsigned short int reverse_bits(unsigned short int num) {
