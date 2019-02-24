@@ -56,7 +56,7 @@ int integer_evens(int* arr, int size) {
 	return counter;
 }
 
-int counter_bits(int num) {
+int count_bits(int num) {
 
   int count = 0;
 
@@ -74,7 +74,7 @@ int partition(int* arr, int left, int right) {
   int temp;
 
   int i;
-  for (i = left; i < right - 1; i++) {
+  for (i = left; i < right; i++) {
     if (arr[i] < pivot) {
       index++;
       temp = arr[index];
@@ -105,7 +105,8 @@ void integer_quicksort(int* arr, int left, int right) {
 
 int *most_values(int* arr, int size, int highest) {
 
-  int frequency[highest];
+  int frequency[highest+1];
+  memset(frequency, 0, sizeof(int) * (highest+1));
 
   // Calculate the frequency of ints
   int i;
