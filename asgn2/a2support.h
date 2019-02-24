@@ -3,6 +3,8 @@
 #define A2SUPPORT_INCLUDED
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -23,7 +25,7 @@ int float_evens(float*, int);
 int integer_evens(int*, int);
 int count_bits(int);
 void integer_quicksort(int*, int, int);
-int* most_values(int*, int, int);
+void most_values(int*, int, int);
 unsigned short int reverse_bits(unsigned short int);
 void binary_string(unsigned short int, char*, int);
 

@@ -14,6 +14,7 @@
 
 #include "a2support.h"
 
+// Just loop through the array and print everything
 void float_display_array(float* arr, int size) {
 	// Print contents
 	for (int i = 0; i < size; i++) {
@@ -21,6 +22,7 @@ void float_display_array(float* arr, int size) {
 	}
 }
 
+// Same as above
 void integer_display_array(int* arr, int size) {
 	// Print contents
 	for (int i = 0; i < size; i++) {
@@ -29,6 +31,7 @@ void integer_display_array(int* arr, int size) {
 
 }
 
+// Loop through array and if the element is divisible by 2 then increment a counter
 int float_evens(float* arr, int size) {
 
   int counter = 0;
@@ -43,6 +46,7 @@ int float_evens(float* arr, int size) {
 	return counter;
 }
 
+// Same as above
 int integer_evens(int* arr, int size) {
 
   int counter = 0;
@@ -56,6 +60,7 @@ int integer_evens(int* arr, int size) {
 	return counter;
 }
 
+// Loop through the number using shifting and if the bit is a 1 then increment a counter
 int count_bits(int num) {
 
   int count = 0;
@@ -103,7 +108,7 @@ void integer_quicksort(int* arr, int left, int right) {
   }
 }
 
-int *most_values(int* arr, int size, int highest) {
+void most_values(int* arr, int size, int highest) {
 
   int frequency[highest+1];
   memset(frequency, 0, sizeof(int) * (highest+1));
@@ -116,35 +121,18 @@ int *most_values(int* arr, int size, int highest) {
 
   // Find out what the most frequent int is
   int most_freq = 0;
-  for (i = 0; i < highest; i++) {
+  for (i = 0; i <= highest; i++) {
     if (most_freq < frequency[i]) {
       most_freq = frequency[i];
     }
   }
 
-  // Calculate how many numbers are at that frequency
-  int ret_count = 0;
-  for (i = 0; i < highest; i++) {
+  // print frequent numbers
+  for (i = 0; i <= highest; i++) {
     if (most_freq == frequency[i]) {
-      ret_count++;
+      printf("%d\n", i);
     }
   }
-
-  // One extra to signify the end (ret_count + 1)
-  int *counter = (int *) malloc(sizeof(int) * (ret_count+1));
-
-  // Add those numbers to an array to return
-  int position = 0;
-  for (i = 0; i < highest; i++) {
-    if (most_freq == frequency[i]) {
-      counter[position] = i;
-      position++;
-    }
-  }
-
-  counter[position] = -1;
-
-  return counter;
 }
 
 unsigned short int reverse_bits(unsigned short int num) {
@@ -167,17 +155,15 @@ unsigned short int reverse_bits(unsigned short int num) {
 	return backwards;
 }
 
-void binary_string(unsigned short binary, char* arr, int size) {
+void binary_string(unsigned short int binary, char* arr, int size) {
 
-  int count = 0;
-
-  while (binary) {
-    arr[count] |= binary & 1;
+  int i;
+  for (i = 0; i < size; i++) {
+    arr[size - i - 2] = (binary & 1) + '0';
     binary >>= 1;
-    count++;
   }
 
-  arr[count] = '\0';
+  arr[size-1] = '\0';
 
 }
 

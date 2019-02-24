@@ -40,7 +40,7 @@ int main( void ) {
 	    scanf( "%f", &f_array[i] );
 	}
 
-  // printf("[DEBUG] Checkpoint 1\n");
+  printf("[DEBUG] Checkpoint 1\n");
 
 	// 2.) Casting and modulus
   for (i = 0; i < NUMBER_ENTRIES; i++) {
@@ -48,17 +48,17 @@ int main( void ) {
 		i_array[i] = ((temp * temp) / temp) % 16;
 	}
 
-  // printf("[DEBUG] Checkpoint 2\n");
+  printf("[DEBUG] Checkpoint 2\n");
 
   // 3.) 
 	float_display_array(f_array, NUMBER_ENTRIES);
 
-  // printf("[DEBUG] Checkpoint 3\n");
+  printf("[DEBUG] Checkpoint 3\n");
 
   // 4.)
 	integer_display_array(i_array, NUMBER_ENTRIES);
 
-  // printf("[DEBUG] Checkpoint 4\n");
+  printf("[DEBUG] Checkpoint 4\n");
 
   // 5.)
 	for (i = 0; i < NUMBER_ENTRIES; i++) {
@@ -88,26 +88,41 @@ int main( void ) {
   printf("[DEBUG] Checkpoint 9\n");
 
   // 10.) 
-  int *most_value = most_values(i_array, NUMBER_ENTRIES, i_array[NUMBER_ENTRIES-1]);
-  for (i = 0; most_value[i] != -1; i++) {
-    printf("%d\n", most_value[i]);
-  }
-  free(most_value);
+  most_values(i_array, NUMBER_ENTRIES, i_array[NUMBER_ENTRIES-1]);
 
   printf("[DEBUG] Checkpoint 10\n");
 
   // 11.)
   unsigned short int theOne;
-  char r_theOne[sizeof(unsigned short int) + 1];
-  char bin_str[sizeof(unsigned short int) + 1];
+
+  // Decalre strings
+  char r_theOne[(sizeof(unsigned short int) * 8) + 1];
+  char bin_str[(sizeof(unsigned short int) * 8) + 1];
+
   for (i = 0; i < NUMBER_ENTRIES; i++) {
     theOne = (unsigned short int) i_array[i];
-
-    binary_string(theOne, bin_str, sizeof(unsigned short int) + 1);
-    binary_string(reverse_bits(theOne), r_theOne, sizeof(unsigned short int) + 1);
     
-    printf("Regular: %s\n", bin_str);
-    printf("Reverse: %s\n", r_theOne);
+    // Set all of the arrays to zero
+    memset(r_theOne, '0', (sizeof(unsigned short int) * 8) + 1);
+    memset(bin_str, '0', (sizeof(unsigned short int) * 8) + 1);
+
+    binary_string(theOne, bin_str, sizeof(unsigned short int) * 8 + 1);
+    binary_string(reverse_bits(theOne), r_theOne, sizeof(unsigned short int) * 8 + 1);
+
+    /* 
+    int j;
+    for (j = 0; j < sizeof(unsigned short int) * 8 + 1; j++) {
+      printf("[DEBUG] %c\n", bin_str[j]);
+    }
+
+    for (j = 0; j < sizeof(unsigned short int) * 8 + 1; j++) {
+      printf("[DEBUG] %c - reverse\n", r_theOne[j]);
+    }
+
+    */
+    
+    printf("%s\n", bin_str);
+    printf("%s\n", r_theOne);
 
     // TODO find decimal of r_bin_str
     unsigned char *p = r_theOne;
@@ -122,7 +137,7 @@ int main( void ) {
 
   }
 
-  printf("[DEBUG] Checkpoint 11\n");
+  // printf("[DEBUG] Checkpoint 11\n");
 
 	// Return successfully
 	return 0;
