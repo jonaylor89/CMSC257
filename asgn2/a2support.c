@@ -152,8 +152,11 @@ unsigned short int reverse_bits(unsigned short int num) {
   while (num) {
 
     backwards <<= 1;
+
     backwards |= num & 1;
+
     num >>= 1;
+
     count--;
 
   }
