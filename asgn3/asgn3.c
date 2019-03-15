@@ -64,51 +64,51 @@ int main(int argc, char **argv) {
 
   /* Make 10 calls to calloc */
 
-  if ((d = calloc(sizeof(int), 4)) == NULL) {
+  if ((d = calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
 
 
-  if ((e = calloc(sizeof(int), 4)) == NULL) {
-    return 1; 
-  }
- 
-
-  if ((f = calloc(sizeof(int), 4)) == NULL) {
-    return 1; 
-  }
-
-
-  if ((g = calloc(sizeof(int), 4)) == NULL) {
+  if ((e = calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
  
 
-  if ((h = calloc(sizeof(int), 4)) == NULL) {
+  if ((f = calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
 
 
-  if ((i = calloc(sizeof(int), 4)) == NULL) {
+  if ((g = calloc(4, sizeof(int))) == NULL) {
+    return 1; 
+  }
+ 
+
+  if ((h = calloc(4, sizeof(int))) == NULL) {
+    return 1; 
+  }
+
+
+  if ((i = calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
  
 
-  if ((j = calloc(sizeof(int), 4)) == NULL) {
+  if ((j = calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
 
 
-  if ((k = calloc(sizeof(int), 4)) == NULL) {
+  if ((k = calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
  
-  if ((l = calloc(sizeof(int), 4)) == NULL) {
+  if ((l = calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
 
 
-  if ((m = calloc(sizeof(int), 4)) == NULL) {
+  if ((m = calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
  
