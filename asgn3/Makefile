@@ -1,6 +1,6 @@
 
 CC=gcc
-CFLAGS=-Wall
+CFLAGS=-g -Wall -Wextra
 DEPS=asgn3_support.h
 
 %.o: %.c $(DEPS)
