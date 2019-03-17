@@ -23,7 +23,7 @@ static struct block_meta *request_space(struct block_meta *last, size_t size) {
     block->prev = NULL; 
   }
 
-  block->size = size;
+  block->size = size + (size % 8);
   block->next = NULL;
   block->free = 0;
   block->magic = 0x12345678;
