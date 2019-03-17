@@ -1,22 +1,24 @@
 
+#include <stdio.h>
+
 #include "asgn3_support.h"
 
 int main(void) {
 
   /* Make 10 calls to malloc */
-   int a;
-   int b;
-   int c;
-   int d[];
-   int e[];
-   int f[];
-   int g[];
-   int h[];
-   int i[];
-   int j[];
-   int k[];
-   int l[];
-   int m[];
+   int *a;
+   int *b;
+   int *c;
+   int *d;
+   int *e;
+   int *f;
+   int *g;
+   int *h;
+   int *i;
+   int *j;
+   int *k;
+   int *l;
+   int *m;
 
   if ((a = (int *)malloc(sizeof(int))) == NULL) {
     return 1; 
@@ -174,7 +176,7 @@ int main(void) {
   /* Print total memory leakage */
 
   /* Print starting and ending addresses of the heap */
-  printf("%p\n", global_base);
+  printf("%p\n", getGlobalBase());
   printf("%p\n", sbrk(0));
 
   return 0;

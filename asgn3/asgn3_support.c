@@ -1,7 +1,7 @@
 
 #include "asgn3_support.h"
 
-void *global_base = NULL;
+static void *global_base = NULL;
 
 static struct block_meta *get_block_ptr(void *ptr) {
   return (struct block_meta *)ptr - 1;
@@ -119,6 +119,10 @@ void free(void *ptr) {
   struct block_meta *block_ptr = get_block_ptr(ptr);
   block_ptr->free = 1;
   block_ptr->magic = 0x55555555;
+}
+
+void *getGlobalBase() {
+  return global_base;
 }
 
 
