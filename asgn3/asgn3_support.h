@@ -11,6 +11,7 @@
 struct block_meta {
   size_t size;
   struct block_meta *next;
+  struct block_meta *prev;
   int free;
   int magic;
 };

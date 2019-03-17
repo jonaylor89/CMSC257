@@ -18,6 +18,9 @@ static struct block_meta *request_space(struct block_meta *last, size_t size) {
 
   if (last) {
     last->next = block; 
+    block->prev = last;
+  } else {
+    block->prev = NULL; 
   }
 
   block->size = size;
@@ -35,6 +38,8 @@ static struct block_meta *find_free_block(struct block_meta **last, size_t size)
     *last = current;
     current = current->next;
   }
+
+  return current;
 }
 
 void *malloc(size_t size) {
