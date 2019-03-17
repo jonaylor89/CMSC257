@@ -18,148 +18,148 @@ int main(void) {
    int l[];
    int m[];
 
-  if ((a = malloc(sizeof(int))) == NULL) {
+  if ((a = (int *)malloc(sizeof(int))) == NULL) {
     return 1; 
   }
 
-  if ((b = malloc(sizeof(int))) == NULL) {
+  if ((b = (int *)malloc(sizeof(int))) == NULL) {
     return 1; 
   }
 
-  if ((c = malloc(sizeof(int))) == NULL) {
+  if ((c = (int *)malloc(sizeof(int))) == NULL) {
     return 1; 
   }
 
-  if ((d = malloc(sizeof(int) * 4)) == NULL) {
+  if ((d = (int *)malloc(sizeof(int) * 4)) == NULL) {
     return 1; 
   }
 
 
-  if ((e = malloc(sizeof(int) * 4)) == NULL) {
+  if ((e = (int *)malloc(sizeof(int) * 4)) == NULL) {
     return 1; 
   }
 
   /* Do it again because why not */
-  if ((a = malloc(sizeof(int))) == NULL) {
+  if ((a = (int *)malloc(sizeof(int))) == NULL) {
     return 1; 
   }
 
-  if ((b = malloc(sizeof(int))) == NULL) {
+  if ((b = (int *)malloc(sizeof(int))) == NULL) {
     return 1; 
   }
 
-  if ((c = malloc(sizeof(int))) == NULL) {
+  if ((c = (int *)malloc(sizeof(int))) == NULL) {
     return 1; 
   }
 
-  if ((d = malloc(sizeof(int) * 4)) == NULL) {
+  if ((d = (int *)malloc(sizeof(int) * 4)) == NULL) {
     return 1; 
   }
 
 
-  if ((e = malloc(sizeof(int) * 4)) == NULL) {
+  if ((e = (int *)malloc(sizeof(int) * 4)) == NULL) {
     return 1; 
   }
  
 
   /* Make 10 calls to calloc */
 
-  if ((d = calloc(4, sizeof(int))) == NULL) {
+  if ((d = (int *)calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
 
 
-  if ((e = calloc(4, sizeof(int))) == NULL) {
-    return 1; 
-  }
- 
-
-  if ((f = calloc(4, sizeof(int))) == NULL) {
-    return 1; 
-  }
-
-
-  if ((g = calloc(4, sizeof(int))) == NULL) {
+  if ((e = (int *)calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
  
 
-  if ((h = calloc(4, sizeof(int))) == NULL) {
+  if ((f = (int *)calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
 
 
-  if ((i = calloc(4, sizeof(int))) == NULL) {
+  if ((g = (int *)calloc(4, sizeof(int))) == NULL) {
+    return 1; 
+  }
+ 
+
+  if ((h = (int *)calloc(4, sizeof(int))) == NULL) {
+    return 1; 
+  }
+
+
+  if ((i = (int *)calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
  
 
-  if ((j = calloc(4, sizeof(int))) == NULL) {
+  if ((j = (int *)calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
 
 
-  if ((k = calloc(4, sizeof(int))) == NULL) {
+  if ((k = (int *)calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
  
-  if ((l = calloc(4, sizeof(int))) == NULL) {
+  if ((l = (int *)calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
 
 
-  if ((m = calloc(4, sizeof(int))) == NULL) {
+  if ((m = (int *)calloc(4, sizeof(int))) == NULL) {
     return 1; 
   }
  
 
   /* Make 10 calls to realloc */
 
-  if ((d = realloc(d, sizeof(int) * 10)) == NULL) {
+  if ((d = (int *)realloc(d, sizeof(int) * 10)) == NULL) {
     return 1; 
   }
 
 
-  if ((e = realloc(e, sizeof(int) + 10)) == NULL) {
-    return 1; 
-  }
- 
-
-  if ((f = realloc(f, sizeof(int) * 10)) == NULL) {
-    return 1; 
-  }
-
-
-  if ((g = realloc(g, sizeof(int) * 10)) == NULL) {
+  if ((e = (int *)realloc(e, sizeof(int) + 10)) == NULL) {
     return 1; 
   }
  
 
-  if ((h = realloc(h, sizeof(int) * 10)) == NULL) {
+  if ((f = (int *)realloc(f, sizeof(int) * 10)) == NULL) {
     return 1; 
   }
 
 
-  if ((i = realloc(i, sizeof(int) * 10)) == NULL) {
+  if ((g = (int *)realloc(g, sizeof(int) * 10)) == NULL) {
+    return 1; 
+  }
+ 
+
+  if ((h = (int *)realloc(h, sizeof(int) * 10)) == NULL) {
+    return 1; 
+  }
+
+
+  if ((i = (int *)realloc(i, sizeof(int) * 10)) == NULL) {
     return 1; 
   }
  
 
-  if ((j = realloc(j, sizeof(int) * 10)) == NULL) {
+  if ((j = (int *)realloc(j, sizeof(int) * 10)) == NULL) {
     return 1; 
   }
 
 
-  if ((k = realloc(k, sizeof(int) * 10)) == NULL) {
+  if ((k = (int *)realloc(k, sizeof(int) * 10)) == NULL) {
     return 1; 
   }
  
-  if ((l = realloc(l, sizeof(int) * 10)) == NULL) {
+  if ((l = (int *)realloc(l, sizeof(int) * 10)) == NULL) {
     return 1; 
   }
 
 
-  if ((m = realloc(m, sizeof(int) * 10)) == NULL) {
+  if ((m = (int *)realloc(m, sizeof(int) * 10)) == NULL) {
     return 1; 
   }
 
