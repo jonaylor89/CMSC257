@@ -44,11 +44,11 @@ static struct block_meta *find_free_block(struct block_meta **last, size_t size)
 
 static void merge_free_blocks(struct block_meta *first, struct block_meta *second) {
   if (first < second) {
-    first->size += second.size + META_SIZE; 
+    first->size += second->size + META_SIZE; 
     second->next->prev = first;
     first->next = second->next;
   } else {
-    second->size += first.size + META_SIZE;
+    second->size += first->size + META_SIZE;
     first->next->prev = second;
     second->next = first->next;
   }
@@ -152,7 +152,6 @@ void free(void *ptr) {
 void *getGlobalBase() {
   return global_base;
 }
-
 
 
 

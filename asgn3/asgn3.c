@@ -5,6 +5,9 @@
 
 int main(void) {
 
+  /* starting address of the heap */
+  printf("%p\n", sbrk(0));
+
   /* Make 10 calls to malloc */
    int *a;
    int *b;
@@ -156,7 +159,7 @@ int main(void) {
     return 1; 
   }
  
-  if ((l = (int *)realloc(l, sizeof(int) * 10)) == NULL) {
+  if ((l = (int *)realloc(l, sizeof(int) * 1)) == NULL) {
     return 1; 
   }
 
@@ -173,10 +176,10 @@ int main(void) {
   free(d);
   free(e);
 
-  /* Print total memory leakage */
+  /* total memory leakage */
+  printf("\n");
 
-  /* Print starting and ending addresses of the heap */
-  printf("%p\n", getGlobalBase());
+  /* ending address of the heap */
   printf("%p\n", sbrk(0));
 
   return 0;
