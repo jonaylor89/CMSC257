@@ -23,6 +23,7 @@ static struct block_meta *request_space(struct block_meta *last, size_t size) {
     block->prev = NULL; 
   }
 
+  // Align block to multiple of 8
   block->size = size + (size % 8);
   block->next = NULL;
   block->free = 0;
@@ -68,10 +69,36 @@ static void check_adjecent_frees(struct block_meta *block) {
   }
 }
 
+static void split_block(struct block_meta *block, size) {
+  // Make sure it's a multiple of 8
+  size += size % 8;
+
+  // save old size
+  int temp_size = block->size;
+
+  // Change size of original block
+  block->size = size;
+
+  void *temp_ptr = (void *)block;
+
+  // Move pointer to the start of the new meta_block
+  temp_ptr += (META_SIZE + size);
+
+  struct block_meta *new_block = (struct block_meta *)temp_ptr;
+
+  new_block->size = temp_size - META_SIZE;
+  new_block->next = block->next;
+  new_block->prev = block;
+  new_block->free = 1;
+  new_block->magic = 0x12345678;
+
+  block->next = new_block;
+
+}
+
 void *malloc(size_t size) {
 
   struct block_meta *block;
-  // TODO: align size
 
   if (size <= 0) {
     return NULL; 
