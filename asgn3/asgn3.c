@@ -72,8 +72,22 @@ int main(void) {
   if ((e = (int *)malloc(sizeof(int) * 4)) == NULL) {
     return 1; 
   }
- 
 
+  /* total memory leakage */
+  struct block_meta *current = getGlobalBase();
+
+  /* Just counting things I didn't free */
+  int count = 0;
+  while (current != NULL) {
+    printf("[DEBUG] Memory %d\n", (int)current->size);
+    if (!current->free) {
+        count += (current->size + META_SIZE);
+    }
+    current = current->next;
+  }
+
+  printf("%d\n", count);
+ 
   /* Make 10 calls to calloc */
 
   if ((d = (int *)calloc(4, sizeof(int))) == NULL) {
@@ -175,6 +189,7 @@ int main(void) {
     return 1; 
   }
 
+ 
   /* Make 5 calls to free */
 
   free(a);
@@ -184,11 +199,12 @@ int main(void) {
   free(e);
 
   /* total memory leakage */
-  struct block_meta *current = getGlobalBase();
+  /*struct block_meta */current = getGlobalBase();
 
   /* Just counting things I didn't free */
-  int count = 0;
+  /*int*/ count = 0;
   while (current != NULL) {
+    printf("[DEBUG] Memory %d\n", (int)current->size);
     if (!current->free) {
         count += (current->size + META_SIZE);
     }

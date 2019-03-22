@@ -23,6 +23,7 @@ static struct block_meta *get_block_ptr(void *ptr) {
  ******************************************************/
 static struct block_meta *request_space(struct block_meta *last, size_t size) {
   struct block_meta *block;
+  struct block_meta *temp;
   block = sbrk(0);
   void *request = sbrk(size + META_SIZE);
 
@@ -30,16 +31,27 @@ static struct block_meta *request_space(struct block_meta *last, size_t size) {
     return NULL; 
   }
 
+
   if (last) {
+    temp = last->next;
+
     last->next = block; 
     block->prev = last;
+    
+    if (temp) {
+      temp->prev = block;
+      block->next = temp;
+    } else {
+      block->next = NULL; 
+    }
+
   } else {
     block->prev = NULL; 
+    block->next = NULL;
   }
 
   // Align block to multiple of 8
   block->size = size + (size % 8);
-  block->next = NULL;
   block->free = 0;
   block->magic = 0x12345678;
 
@@ -56,13 +68,11 @@ static struct block_meta *find_free_block(struct block_meta **last, size_t size)
   size_t difference = current->size - size;
   
   while (current != NULL) {
-    if ((current->free) && (current->size >= size) && (current->size - size > difference)) {
+    if ((current->free) && (current->size >= size) && (current->size - size < difference)) {
       difference = current->size - size;
     }
 
-    *last = current;
     current = current->next;
-
   }
 
   current = global_base;
@@ -71,6 +81,7 @@ static struct block_meta *find_free_block(struct block_meta **last, size_t size)
     if (current->size - size == difference) {
         break;
     }
+
     *last = current;
     current = current->next;
   }
@@ -101,11 +112,11 @@ static void check_adjecent_frees(struct block_meta *block) {
     return; 
   }
 
-  if (block->next != NULL && block->next->free == 1) {
+  if (block->next != NULL && block->next->free) {
     merge_free_blocks(block, block->next);
   }
 
-  if (block->next != NULL && block->prev->free == 1) {
+  if (block->next != NULL && block->prev->free) {
     merge_free_blocks(block->prev, block);
   }
 }
@@ -171,7 +182,7 @@ void *malloc(size_t size) {
       } else {
 
         // Check if block size can be split then split it
-        if (block->size - (size + META_SIZE) > 8) {
+        if (block->size - (size + META_SIZE) > (8 + META_SIZE)) {
             split_block(block, size);
         }
 
