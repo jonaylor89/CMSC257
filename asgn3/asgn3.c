@@ -1,4 +1,11 @@
-
+/**********************
+ *
+ * John Naylor
+ * CMSC 257 Assignment
+ * Remake malloc
+ * asgn3.c
+ *
+ ***********************/
 #include <stdio.h>
 
 #include "asgn3_support.h"
@@ -177,7 +184,18 @@ int main(void) {
   free(e);
 
   /* total memory leakage */
-  printf("\n");
+  struct block_meta *current = getGlobalBase();
+
+  /* Just counting things I didn't free */
+  int count = 0;
+  while (current != NULL) {
+    if (!current->free) {
+        count += (current->size + META_SIZE);
+    }
+    current = current->next;
+  }
+
+  printf("%d\n", count);
 
   /* ending address of the heap */
   printf("%p\n", sbrk(0));
