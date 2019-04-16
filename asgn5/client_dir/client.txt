@@ -1,0 +1,25 @@
+
+IP = argv[1]
+PORT = argv[2]
+FILENAME = argv[3]
+
+mySocket = socket(PF_INET, SOCK_STREAM)
+
+connect(mySocket, IP, PORT)
+
+send(mySocket, "GET " + FILENAME)
+
+myFile = open(FILENAME)
+
+myBuffer[receiveLength]
+
+n = recv(mySocket, myBuffer, receiveLength)
+
+while n > 0
+  append(myFile, myBuffer) 
+  n = recv(mySocket, myBuffer)
+endwhile
+
+close(myFile)
+
+close(mySocket)
