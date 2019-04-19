@@ -11,13 +11,13 @@ write(mySocket, "GET " + FILENAME)
 
 myFile = open(FILENAME)
 
-myBuffer[receiveLength]
+myBuffer[50]
 
-n = recv(mySocket, myBuffer, receiveLength)
+n = read(mySocket, myBuffer, 50)
 
-while n > 0
+while myBuffer is not "/cmsc257"
   append(myFile, myBuffer) 
-  n = recv(mySocket, myBuffer)
+  n = read(mySocket, myBuffer)
 endwhile
 
 close(myFile)

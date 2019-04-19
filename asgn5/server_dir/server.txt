@@ -12,16 +12,25 @@ while true
 
   if fork() == 0 
 
-    while true
-      FILENAME = recv(client)  
-      fd = open(FILENAME, 'r')
-      while still data
-        dataChunk = read(fd, length)
-        send(myServer, client, dataChunk) 
-      endwhile
+    FILENAME = read(myServer, client, 50)  
+
+    if not exists(FILENAME) 
+      write(myServer, client, "/cmsc257")
+    endif
+
+    fd = open(FILENAME, 'r')
+    while still data
+
+      dataChunk = read(fd, 50)
+      write(myServer, client, dataChunk) 
+
     endwhile
 
+    write(myServer, client, "/cmsc257")
+
     close(client)
+
+    exit(0)
   else
     continue 
 
