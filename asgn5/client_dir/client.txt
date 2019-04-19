@@ -7,7 +7,7 @@ mySocket = socket(PF_INET, SOCK_STREAM)
 
 connect(mySocket, IP, PORT)
 
-send(mySocket, "GET " + FILENAME)
+write(mySocket, "GET " + FILENAME)
 
 myFile = open(FILENAME)
 

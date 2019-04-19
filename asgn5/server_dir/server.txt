@@ -1,25 +1,31 @@
 
 IP = argv[1]
 
-myServer = socket(PF_INET, SOCK_STREAM)
+myServer = socket(PF_INET, SOCK_STREAM, 0)
 
 bind(myServer, ServerIP, PORT)
+
+listen(myServer, 5)
 
 while true 
   client = accept(myServer)
 
   if fork() == 0 
+
     while true
       FILENAME = recv(client)  
-      open(FILENAME, 'r')
+      fd = open(FILENAME, 'r')
       while still data
-        dataChunk = read(FILENAME, length)
+        dataChunk = read(fd, length)
         send(myServer, client, dataChunk) 
       endwhile
     endwhile
+
     close(client)
   else
     continue 
+
   endif
+
 endwhile
 
