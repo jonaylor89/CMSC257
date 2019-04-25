@@ -3,10 +3,10 @@
 
 int downloadFile(int sock) {
 
-  int fd;
+  int fd; // The fd for the downloaded file
   char buf[MAX];
 
-  while (true) {
+  while (1) {
     read(sock, buf, MAX);
 
     if ((strncmp("/cmsc257", buf, 8)) == 0) {
@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
     exit(1);
   }
 
-  close(sock)
+  close(sock);
 
   return 0;
 }
