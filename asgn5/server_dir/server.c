@@ -5,7 +5,7 @@ void connHandler(int client) {
 
   char buf[MAX];
 
-  while (true) {
+  while (1) {
     write(client, "/cmsc257", 8);
 
     break;
@@ -15,7 +15,7 @@ void connHandler(int client) {
 
 int main(int argc, char **argv) {
 
-  int sock, conn;
+  int sock, conn, len;
   struct sockaddr_in server, client;
 
   sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -33,12 +33,12 @@ int main(int argc, char **argv) {
 
   len = sizeof(client);
 
-  conn = accept(sock, (struct sockaddr*)&client, &len);
+  conn = accept(sock, (struct sockaddr*)&client, (socklen_t *)&len);
   if (conn < 0) {
     exit(1);
   }
 
-  clientHandler(conn);
+  connHandler(conn);
 
   close(sock);
 

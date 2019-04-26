@@ -1,5 +1,12 @@
 
 CC=gcc
+CFLAGS=-Wall
+DEPS = client.h client_support.h
+OBJ = client.o
 
-client: client.c 
-	$(CC) -Wall -o client client.c
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+client: $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS)
+

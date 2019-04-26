@@ -20,14 +20,14 @@ int downloadFile(int sock) {
 int main(int argc, char **argv) {
 
   int sock, conn;
-  struct sockaddr_in, server, client;
+  struct sockaddr_in server, client;
 
   sock = socket(AF_INET, SOCK_STREAM, 0);
   if (sock == -1) {
     exit(1);
   }
 
-  server.sin_family = AD_INET;
+  server.sin_family = AF_INET;
   server.sin_addr.s_addr = inet_addr("127.0.0.1");
   server.sin_port = htons(PORT);
 
