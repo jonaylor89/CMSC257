@@ -1,45 +1,82 @@
+/*
+** client.c -- a stream socket client demo
+*/
 
 #include "client.h"
 
-int downloadFile(int sock) {
+#define MAXDATASIZE 100 // max number of bytes we can get at once 
 
-  int fd; // The fd for the downloaded file
-  char buf[MAX];
+void downloadFile(int sockfd) {
 
-  while (1) {
-    read(sock, buf, MAX);
+  int numbytes;
+	char buf[MAXDATASIZE];
 
-    if ((strncmp("/cmsc257", buf, 8)) == 0) {
-      break; 
-    }
-  }
+  if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
+	    perror("recv");
+	    exit(1);
+	}
 
-  return 0;
+	buf[numbytes] = '\0';
+
+	printf("client: received '%s'\n",buf);
+
 }
 
-int main(int argc, char **argv) {
+// get sockaddr, IPv4 or IPv6:
+void *get_in_addr(struct sockaddr *sa) {
+	if (sa->sa_family == AF_INET) {
+		return &(((struct sockaddr_in*)sa)->sin_addr);
+	}
 
-  int sock, conn;
-  struct sockaddr_in server, client;
-
-  sock = socket(AF_INET, SOCK_STREAM, 0);
-  if (sock == -1) {
-    exit(1);
-  }
-
-  server.sin_family = AF_INET;
-  server.sin_addr.s_addr = inet_addr("127.0.0.1");
-  server.sin_port = htons(PORT);
-
-  if (connect(sock, (struct sockaddr*)&server, sizeof(server)) != 0) {
-    exit(1);
-  }
-
-  if (downloadFile(sock) == -1) {
-    exit(1);
-  }
-
-  close(sock);
-
-  return 0;
+	return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
+
+int main(int argc, char *argv[]) {
+	int sockfd;
+	struct addrinfo hints, *servinfo, *p;
+	int rv;
+	char s[INET6_ADDRSTRLEN];
+
+	memset(&hints, 0, sizeof hints);
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_STREAM;
+
+	if ((rv = getaddrinfo(ADDR, PORT, &hints, &servinfo)) != 0) {
+		fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
+		return 1;
+	}
+
+	for(p = servinfo; p != NULL; p = p->ai_next) {
+		if ((sockfd = socket(p->ai_family, p->ai_socktype,
+				p->ai_protocol)) == -1) {
+			perror("client: socket");
+			continue;
+		}
+
+		if (connect(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
+			perror("client: connect");
+			close(sockfd);
+			continue;
+		}
+
+		break;
+	}
+
+	if (p == NULL) {
+		fprintf(stderr, "client: failed to connect\n");
+		return 2;
+	}
+
+	inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
+			s, sizeof s);
+	printf("client: connecting to %s\n", s);
+
+	freeaddrinfo(servinfo); // all done with this structure
+
+  downloadFile(sockfd);
+
+	close(sockfd);
+
+	return 0;
+}
+

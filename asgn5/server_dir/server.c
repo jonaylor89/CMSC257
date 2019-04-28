@@ -1,46 +1,111 @@
+/*
+** server.c -- a stream socket server demo
+*/
 
 #include "server.h"
 
-void connHandler(int client) {
+#define BACKLOG 10	 // how many pending connections queue will hold
 
-  char buf[MAX];
-
-  while (1) {
-    write(client, "/cmsc257", 8);
-
-    break;
-  }
+void connHandler(int conn) {
 
 }
 
-int main(int argc, char **argv) {
+// get sockaddr, IPv4 or IPv6:
+void *get_in_addr(struct sockaddr *sa) {
+	if (sa->sa_family == AF_INET) {
+		return &(((struct sockaddr_in*)sa)->sin_addr);
+	}
 
-  int sock, conn, len;
-  struct sockaddr_in server, client;
+	return &(((struct sockaddr_in6*)sa)->sin6_addr);
+}
 
-  sock = socket(AF_INET, SOCK_STREAM, 0);
-  if (sock == -1) {
-    exit(1);
-  }
+int main(void) {
+	int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
+	struct addrinfo hints, *servinfo, *p;
+	struct sockaddr_storage their_addr; // connector's address information
+	socklen_t sin_size;
+	int yes=1;
+	char s[INET6_ADDRSTRLEN];
+	int rv;
 
-  server.sin_family = AF_INET;
-  server.sin_addr.s_addr = htonl(INADDR_ANY);
-  server.sin_port = htons(PORT);
+	memset(&hints, 0, sizeof hints);
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_flags = AI_PASSIVE; // use my IP
 
-  if ((listen(sock, 5)) != 0) {
-    exit(1);
-  }
+	if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {
+		fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
+		return 1;
+	}
 
-  len = sizeof(client);
+	// loop through all the results and bind to the first we can
+	for(p = servinfo; p != NULL; p = p->ai_next) {
+		if ((sockfd = socket(p->ai_family, p->ai_socktype,
+				p->ai_protocol)) == -1) {
+			perror("server: socket");
+			continue;
+		}
 
-  conn = accept(sock, (struct sockaddr*)&client, (socklen_t *)&len);
-  if (conn < 0) {
-    exit(1);
-  }
+		if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes,
+				sizeof(int)) == -1) {
+			perror("setsockopt");
+			exit(1);
+		}
 
-  connHandler(conn);
+		if (bind(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
+			close(sockfd);
+			perror("server: bind");
+			continue;
+		}
 
-  close(sock);
+		break;
+	}
 
-  return 0;
+	freeaddrinfo(servinfo); // all done with this structure
+
+	if (p == NULL)  {
+		fprintf(stderr, "server: failed to bind\n");
+		exit(1);
+	}
+
+	if (listen(sockfd, BACKLOG) == -1) {
+		perror("listen");
+		exit(1);
+	}
+
+	printf("server: waiting for connections...\n");
+
+	while(1) {  // main accept() loop
+		sin_size = sizeof their_addr;
+		
+		new_fd = accept(sockfd, (struct sockaddr *)&their_addr, &sin_size);
+		if (new_fd == -1) {
+			perror("accept");
+			continue;
+		}
+
+        if (fork() == 0) {
+            // Child code
+            inet_ntop(their_addr.ss_family,
+			          get_in_addr((struct sockaddr *)&their_addr),
+			          s, sizeof s);
+		        printf("server: got connection from %s\n", s);
+
+		        if (send(new_fd, "Hello, world!", 13, 0) == -1)
+			        perror("send");
+
+            connHandler(new_fd);
+
+		        close(new_fd);
+            exit(0);
+
+        } else {
+            // Parent code
+            
+            close(new_fd);
+        }
+
+	}
+
+	return 0;
 }
