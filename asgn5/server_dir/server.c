@@ -10,7 +10,7 @@ void connHandler(int conn) {
 
   int numbytes;
   char buf[MAX];
-  char *filename = "";
+  char filename[MAX];
 
   if ((numbytes = recv(conn, buf, MAX-1, 0)) == -1) {
     perror("recv");
@@ -21,7 +21,7 @@ void connHandler(int conn) {
 
   printf("server: received filename '%s'\n", buf);
 
-  strncpy(buf, filename, numbytes+1);
+  strncpy(filename, buf, MAX);
   
   int fr = open(filename, O_RDONLY);
   if (fr == -1) {
