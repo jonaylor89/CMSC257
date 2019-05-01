@@ -1,61 +1,13 @@
 /*
- ** server.c -- a stream socket server demo
+ * John Naylor
+ * Assignment 5
+ * TCP client/server using sockets
+ * 5/1/19
  */
 
 #include "server.h"
 
-#define BACKLOG 10	 // how many pending connections queue will hold
-
-void connHandler(int conn) {
-
-  int numbytes;
-  char buf[MAX];
-  char filename[MAX];
-
-  if ((numbytes = recv(conn, buf, MAX-1, 0)) == -1) {
-    perror("recv");
-    exit(1);
-  }
-
-  buf[numbytes] = '\0';
-
-  printf("server: received filename '%s'\n", buf);
-
-  strncpy(filename, buf, MAX);
-  
-  int fr = open(filename, O_RDONLY);
-  if (fr == -1) {
-    printf("File %s cannot be openned on server", filename);
-    exit(1);
-  } else {
-    bzero(buf, MAX);
-    numbytes = 0;
-    while ((numbytes = read(fr, buf, MAX))) {
-      if (numbytes < 0) {
-        printf("%s\n", "Error reading file");
-        close(fr);
-        exit(1);
-      }
-
-      send(conn, buf, numbytes, 0);
-
-      bzero(buf, MAX);
-    }
-
-    printf("File sent to client!\n");
-    close(fr);
-  }
-
-}
-
-// get sockaddr, IPv4 or IPv6:
-void *get_in_addr(struct sockaddr *sa) {
-  if (sa->sa_family == AF_INET) {
-    return &(((struct sockaddr_in*)sa)->sin_addr);
-  }
-
-  return &(((struct sockaddr_in6*)sa)->sin6_addr);
-}
+#define BACKLOG 10 // Number of allowed pending connections
 
 int main(void) {
   int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
@@ -102,7 +54,7 @@ int main(void) {
   freeaddrinfo(servinfo); // all done with this structure
 
   if (p == NULL)  {
-    fprintf(stderr, "server: failed to bind\n");
+    fprintf(stderr, "[DEBUG] server: failed to bind\n");
     exit(1);
   }
 
@@ -111,7 +63,7 @@ int main(void) {
     exit(1);
   }
 
-  printf("server: waiting for connections...\n");
+  printf("[DEBUG] server: waiting for connections...\n");
 
   while(1) {  // main accept() loop
     sin_size = sizeof their_addr;
@@ -127,7 +79,7 @@ int main(void) {
       inet_ntop(their_addr.ss_family,
           get_in_addr((struct sockaddr *)&their_addr),
           s, sizeof s);
-      printf("server: got connection from %s\n", s);
+      printf("[DEBUG] server: got connection from %s\n", s);
 
       connHandler(new_fd);
 
@@ -136,7 +88,6 @@ int main(void) {
 
     } else {
       // Parent code
-
       close(new_fd);
     }
 
