@@ -1,3 +1,9 @@
+/*
+ * John Naylor
+ * Assignment 5
+ * TCP client/server using sockets
+ * 5/1/19
+ */
 
 #include "server.h"
 
