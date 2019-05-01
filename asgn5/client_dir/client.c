@@ -7,6 +7,14 @@
 
 #include "client.h"
 
+/**
+ *
+ * Entry point for the client app
+ *
+ * This handles the creation of the socket and the connection
+ * as well as signal handling for multiprocess connections
+ *
+ */
 int main(int argc, char *argv[]) {
   int sockfd;
   struct addrinfo hints, *servinfo, *p;
