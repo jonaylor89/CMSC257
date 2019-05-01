@@ -15,6 +15,9 @@
 
 #define PORT "51234"
 #define ADDR "127.0.0.1"
-#define MAX 50
+#define MAX 50      // Number of bytes at a time
+#define BACKLOG 10  // Number of pending connections
 
+// Function to handle client connections
 void connHandler(int);
+void *get_in_addr(struct sockaddr*);
