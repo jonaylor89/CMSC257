@@ -9,6 +9,16 @@
 
 #define BACKLOG 10 // Number of allowed pending connections
 
+void sigint_handler(int sig) {
+
+
+  exit(0);
+}
+
+void handle_sigchld(int sig) {
+  while (waitpid((pid_t)(-1), 0, WNOHANG) > 0) {}
+}
+
 int main(void) {
   int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
   struct addrinfo hints, *servinfo, *p;
@@ -22,6 +32,19 @@ int main(void) {
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_PASSIVE; // use my IP
+
+  struct sigaction action;
+  memset(&action, 0, sizeof(action));
+
+  action.sa_handler = &sigint_handler;
+  sigaction(SIGINT, &action, NULL);
+
+
+  struct sigaction sa;
+  sa.sa_handler = &handle_sigchld;
+  sigemptyset(&sa.sa_mask);
+  sa.sa_flags = SA_RESTART | SA_NOCLDSTOP | SA_NOCLDWAIT;
+  sigaction(SIGCHLD, &sa, NULL);
 
   if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {
     fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
@@ -75,6 +98,7 @@ int main(void) {
     }
 
     if (fork() == 0) {
+
       // Child code
       inet_ntop(their_addr.ss_family,
           get_in_addr((struct sockaddr *)&their_addr),
