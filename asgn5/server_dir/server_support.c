@@ -46,14 +46,16 @@ void connHandler(int conn) {
 
   printf("[DEBUG] server: received filename '%s'\n", buf);
 
-  strncpy(filename, buf, MAX);
+  // Adding 4 gets ride of the `get `
+  strncpy(filename, buf + 4, MAX);
   
   /**
    * Open the file to be sent
    */
   int fr = open(filename, O_RDONLY);
   if (fr == -1) {
-    printf("[DEBUG] File %s cannot be openned on server", filename);
+    printf("[DEBUG] File %s cannot be opened on server", filename);
+    send(conn, "/cmsc257", 8, 0);
     exit(1);
   } else {
     bzero(buf, MAX);
@@ -76,6 +78,8 @@ void connHandler(int conn) {
 
       bzero(buf, MAX);
     }
+
+    send(conn, "/cmsc257", 8, 0);
 
     printf("%s", "[DEBUG] File sent to client!\n");
     close(fr);
