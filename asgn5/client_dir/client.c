@@ -20,6 +20,12 @@ int main(int argc, char *argv[]) {
   struct addrinfo hints, *servinfo, *p;
   int rv;
   char s[INET6_ADDRSTRLEN];
+
+  if (argc < 3) {
+    printf("client app requires 3 arguments\n");
+    printf("./client [ADDR] [PORT] [FILENAME]\n");
+    exit(1);
+  }
   
   char *ADDR = argv[1];
   char *PORT = argv[2];
@@ -61,8 +67,7 @@ int main(int argc, char *argv[]) {
     return 2;
   }
 
-  inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
-      s, sizeof s);
+  inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr), s, sizeof s);
   printf("[DEBUG] client: connecting to %s\n", s);
 
   freeaddrinfo(servinfo); // all done with this structure

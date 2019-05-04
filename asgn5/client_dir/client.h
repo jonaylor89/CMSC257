@@ -21,3 +21,4 @@
 #define MAX 50
 
 void downloadFile(int, char*);
+void *get_in_addr(struct sockaddr *sa);

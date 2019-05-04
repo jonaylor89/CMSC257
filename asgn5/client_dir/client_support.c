@@ -13,10 +13,10 @@
  * Procedure to download a file from a server
  *
  * First sends the server the filename of it wants to download
- * then Receives the server's response 50 ybtes at a time
+ * then Receives the server's response 50 bybtes at a time
  *
  */
-void downloadFile(int conn, char* fr_name) {
+void downloadFile(int conn, char *fr_name) {
 
   char buf[MAX];
 
@@ -28,11 +28,15 @@ void downloadFile(int conn, char* fr_name) {
     printf("[DEBUG] File %s cannot be opened file on client.\n", fr_name);
   } else {
 
+  // 80 is an arbitrary number, pls don't overflow me
+   char command[80];
+   snprintf(command, 80, "get %s", fr_name);
+   printf("[DEBUG] Command: %s\n", command);
     
     /**
      * Send the server the filename
      */
-    send(conn, fr_name, strlen(fr_name), 0);
+    send(conn, command, strlen(command), 0);
     bzero(buf, MAX); 
     int fr_block_sz = 0;
 
@@ -46,9 +50,16 @@ void downloadFile(int conn, char* fr_name) {
         exit(1);
       }
 
+      char *end = strstr(buf, "/cmsc257");
+
       /**
        * Write the bytes received to the open file
        */
+
+      if (end != NULL) {
+        fr_block_sz = end - buf; 
+      }
+
       int write_sz = write(fr, buf, fr_block_sz);
       if(write_sz < fr_block_sz){
         printf("[DEBUG] %s\n", "File write failed on client.");
@@ -56,7 +67,7 @@ void downloadFile(int conn, char* fr_name) {
 
       bzero(buf, MAX);
     }
-    printf("[DEBUG] Ok received from server!\n");
+    printf("[DEBUG] File received from server!\n");
     close(fr);
   }
 
