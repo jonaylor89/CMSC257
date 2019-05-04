@@ -16,11 +16,9 @@
  * then Receives the server's response 50 ybtes at a time
  *
  */
-void downloadFile(int conn) {
+void downloadFile(int conn, char* fr_name) {
 
   char buf[MAX];
-
-  char* fr_name = "TEST.txt";
 
   /**
    * Open the file to write the download

@@ -1,8 +1,8 @@
 
 CC=gcc
 CFLAGS=-Wall
-DEPS = client.h client_support.h
-OBJ = client.o
+DEPS = client.h 
+OBJ = client.o client_support.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)

@@ -20,6 +20,10 @@ int main(int argc, char *argv[]) {
   struct addrinfo hints, *servinfo, *p;
   int rv;
   char s[INET6_ADDRSTRLEN];
+  
+  char *ADDR = argv[1];
+  char *PORT = argv[2];
+  char *filename = argv[3];
 
   memset(&hints, 0, sizeof hints);
   hints.ai_family = AF_UNSPEC;
@@ -63,7 +67,7 @@ int main(int argc, char *argv[]) {
 
   freeaddrinfo(servinfo); // all done with this structure
 
-  downloadFile(sockfd);
+  downloadFile(sockfd, filename);
 
   close(sockfd);
 

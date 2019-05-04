@@ -18,8 +18,6 @@
 #include <fcntl.h>
 #include <errno.h>
 
-#define PORT "51234"
-#define ADDR "127.0.0.1"
 #define MAX 50
 
-void downloadFile(int);
+void downloadFile(int, char*);
